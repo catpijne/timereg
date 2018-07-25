@@ -1,11 +1,11 @@
 (function () {
   document.body.style.background = "rgb(255, 255, 255)";
   let Default_KM_traveld = 0;
-  let Default_KM_commend = ""
+  let Default_KM_comment = ""
   console.log(Default_KM_traveld);
 
 
-  Default_KM_commend = localStorage.getItem("Declaratie_kilometers").Default_KM_commend;
+  Default_KM_comment = localStorage.getItem("Declaratie_kilometers").Default_KM_commend;
   Default_KM_traveld = localStorage.getItem("Declaratie_kilometers").Default_KM_traveld;
 
   function addUserInterface() {
@@ -29,29 +29,29 @@
     document.getElementById("ButtonDefault").addEventListener("click", setDeaultKM);
   }
 
-
   function setDeaultKM() {
-    Default_KM_commend = document.getElementById("Commend").value;
+    Default_KM_comment = document.getElementById("Commend").value;
     Default_KM_traveld = document.getElementById("KM").value;
     let Default_KM = {
-      Default_KM_commend,
+      Default_KM_comment,
       Default_KM_traveld
     }
     console.log(Default_KM);
     localStorage.setItem("Declaratie_kilometers", Default_KM_traveld);
     setKMValueInSheet();
   }
-  function setKMValueInSheet() {
 
+  function setKMValueInSheet() {
     let maxLength = document.getElementsByClassName("PortletText2").length;
     console.log(maxLength);
     let i = maxLength - 8;
     for (i; i < maxLength - 3; i++) {
       document.getElementsByClassName("PortletText2")[i].lastChild.value = Default_KM_traveld;
     }
-    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = Default_KM_commend;
+    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = Default_KM_comment;
 
   }
+
   setKMValueInSheet();
   addUserInterface();
 })();
