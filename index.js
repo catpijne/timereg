@@ -1,12 +1,11 @@
 (function () {
   document.body.style.background = "rgb(255, 255, 255)";
-  let Default_KM_traveld = 0;
-  let Default_KM_commend = ""
-  console.log(Default_KM_traveld);
 
+  let defaultKilometersComment = getDefaultComment();
+  let defaultKilometersTravelled = getDefaultKilometers();
 
-  Default_KM_commend = localStorage.getItem("Declaratie_kilometers").Default_KM_commend;
-  Default_KM_traveld = localStorage.getItem("Declaratie_kilometers").Default_KM_traveld;
+  setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
+  addUserInterface();
 
   function addUserInterface() {
     let node = document.createElement("DIV");
@@ -26,32 +25,48 @@
     let textnode = document.createTextNode("New default");
     node.appendChild(textnode);
     UI_interface.appendChild(node).setAttribute("id", "ButtonDefault");
-    document.getElementById("ButtonDefault").addEventListener("click", setDeaultKM);
+    document.getElementById("ButtonDefault").addEventListener("click", setStorageValues);
   }
 
-  function setDeaultKM() {
-    Default_KM_commend = document.getElementById("Commend").value;
-    Default_KM_traveld = document.getElementById("KM").value;
+  function setStorageValues() {
+    defaultKilometersComment = document.getElementById("Commend").value;
+    defaultKilometersTravelled = document.getElementById("KM").value;
     let Default_KM = {
-      Default_KM_commend,
-      Default_KM_traveld
+      defaultKilometersComment,
+      defaultKilometersTravelled
     }
     console.log(Default_KM);
-    localStorage.setItem("Declaratie_kilometers", Default_KM_traveld);
-    setKMValueInSheet();
+
+    setDefaultComment(defaultKilometersComment);
+    setDefaultKilometers(defaultKilometersTravelled);
+
+    setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   }
 
-  function setKMValueInSheet() {
+  function setKMValueInSheet(kilometers, comment) {
     let maxLength = document.getElementsByClassName("PortletText2").length;
     console.log(maxLength);
     let i = maxLength - 8;
     for (i; i < maxLength - 3; i++) {
-      document.getElementsByClassName("PortletText2")[i].lastChild.value = Default_KM_traveld;
+      document.getElementsByClassName("PortletText2")[i].lastChild.value = kilometers;
     }
-    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = Default_KM_commend;
+    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = comment;
 
   }
 
-  setKMValueInSheet();
-  addUserInterface();
+  function getDefaultComment() {
+    return localStorage.getItem("defaultKilometersComment") ? localStorage.getItem("defaultKilometersComment") : "";
+  }
+
+  function getDefaultKilometers() {
+    return localStorage.getItem("defaultKilometersTravelled") ? localStorage.getItem("defaultKilometersTravelled") : 0;
+  }
+
+  function setDefaultComment(value) {
+    return localStorage.setItem("defaultKilometersComment", value);
+  }
+
+  function setDefaultKilometers(value) {
+    return localStorage.setItem("defaultKilometersTravelled", value);
+  }
 })();
