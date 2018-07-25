@@ -1,11 +1,11 @@
 (function () {
   document.body.style.background = "rgb(255, 255, 255)";
   let Default_KM_traveld = 0;
-  let Default_KM_comment = ""
+  let Default_KM_commend = ""
   console.log(Default_KM_traveld);
 
 
-  Default_KM_comment = localStorage.getItem("Declaratie_kilometers").Default_KM_commend;
+  Default_KM_commend = localStorage.getItem("Declaratie_kilometers").Default_KM_commend;
   Default_KM_traveld = localStorage.getItem("Declaratie_kilometers").Default_KM_traveld;
 
   function addUserInterface() {
@@ -30,10 +30,10 @@
   }
 
   function setDeaultKM() {
-    Default_KM_comment = document.getElementById("Commend").value;
+    Default_KM_commend = document.getElementById("Commend").value;
     Default_KM_traveld = document.getElementById("KM").value;
     let Default_KM = {
-      Default_KM_comment,
+      Default_KM_commend,
       Default_KM_traveld
     }
     console.log(Default_KM);
@@ -48,7 +48,7 @@
     for (i; i < maxLength - 3; i++) {
       document.getElementsByClassName("PortletText2")[i].lastChild.value = Default_KM_traveld;
     }
-    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = Default_KM_comment;
+    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = Default_KM_commend;
 
   }
 
