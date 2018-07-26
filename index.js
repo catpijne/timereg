@@ -1,5 +1,5 @@
 (function () {
-  document.body.style.background = "rgb(255, 255, 0)";
+  document.body.style.background = 'rgb(255, 255, 0)';
 
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
@@ -31,15 +31,15 @@
     parentElement.appendChild(node);
   }
 
-  function AddButton(parentElement, buttonId) {
-    let node = document.createElement("BUTTON");
-    let textnode = document.createTextNode("New default");
+  function AddButton (parentElement, buttonId) {
+    let node = document.createElement('BUTTON');
+    let textnode = document.createTextNode('New default');
     node.appendChild(textnode);
-    parentElement.appendChild(node).setAttribute("id", buttonId);
-    document.getElementById(buttonId).addEventListener("click", setStorageValues);
+    parentElement.appendChild(node).setAttribute('id', buttonId);
+    document.getElementById(buttonId).addEventListener('click', setStorageValues);
   }
 
-  function setStorageValues() {
+  function setStorageValues () {
     defaultKilometersComment = document.getElementById(commentTextboxIdentifier).value;
     defaultKilometersTravelled = document.getElementById(kilometerTextboxIdentifier).value;
 
@@ -48,7 +48,7 @@
     setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   }
 
-  function setKMValueInSheet(kilometers, comment) {
+  function setKMValueInSheet (kilometers, comment) {
     let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
 
     let i = maxLength - 8;
@@ -59,21 +59,22 @@
     document.getElementsByClassName(getClassNameTimereg)[maxLength - 2].lastChild.value = comment;
   }
 
-  function getDefaultComment() {
-    return localStorage.getItem("defaultKilometersComment") ? localStorage.getItem("defaultKilometersComment") : "";
+  function getDefaultComment () {
+    return window.localStorage.getItem('defaultKilometersComment') ? window.localStorage.getItem('defaultKilometersComment') : '';
   }
 
-  function getDefaultKilometers() {
-    return localStorage.getItem("defaultKilometersTravelled") ? localStorage.getItem("defaultKilometersTravelled") : 0;
+  function getDefaultKilometers () {
+    return window.localStorage.getItem('defaultKilometersTravelled') ? window.localStorage.getItem('defaultKilometersTravelled') : 0;
   }
 
-  function setDefaultComment(value) {
-    return localStorage.setItem("defaultKilometersComment", value);
+  function setDefaultComment (value) {
+    return window.localStorage.setItem('defaultKilometersComment', value);
   }
 
-  function setDefaultKilometers(value) {
-    return localStorage.setItem("defaultKilometersTravelled", value);
+  function setDefaultKilometers (value) {
+    return window.localStorage.setItem('defaultKilometersTravelled', value);
   }
+  
   function addCheckboxInterface(userInterfaceRootElement){
     let node = document.createElement("Table");
     userInterfaceRootElement.appendChild(node).setAttribute("class", "UI_checkbox_table");
