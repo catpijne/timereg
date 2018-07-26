@@ -1,5 +1,5 @@
 (function () {
-  document.body.style.background = "rgb(255, 255, 255)";
+  document.body.style.background = "rgb(255, 255, 0)";
 
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
