@@ -20,11 +20,11 @@
     AddButton(userInterfaceRootElement, defaultButtonId);
   }
 
-  function AddInputBox(parentElement, nameId) {
+  function AddInputBox(parentElement, Id) {
     let node = document.createElement("INPUT");
     node.setAttribute("type", "text");
-    node.setAttribute("value", nameId);
-    node.setAttribute("id", nameId);
+    node.setAttribute("value", Id);
+    node.setAttribute("id", Id);
     parentElement.appendChild(node);
   }
 
