@@ -91,8 +91,8 @@
     AddTableHeaderCheckbox(userInterfaceTableHeaderElement, 'vrijdag');
 
     node = document.createElement('tr');
-    document.getElementsByClassName('UI_checkbox_table')[0].setAttribute('id', 'UI_checkbox');
-    const userInterfaceCheckboxElement = document.getElementById('UI_checkbox');
+    document.getElementsByClassName('UI_checkbox_table')[0].appendChild(node).setAttribute('id', 'UI_locationInfo');
+    const userInterfaceCheckboxElement = document.getElementById('UI_locationInfo');
     AddInputCheckBox(userInterfaceCheckboxElement, 'locationName', textInputType);
     AddInputCheckBox(userInterfaceCheckboxElement, kilometerTextboxIdentifier, textInputType);
     AddInputCheckBox(userInterfaceCheckboxElement, commentTextboxIdentifier, textInputType);

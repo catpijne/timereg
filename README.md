@@ -1,5 +1,7 @@
 # Timereg Plugin
 
+Hier maken we timereg beter!
+
 ## Prerequisites
 
 - **VSCode users** - Install [vscode-standardjs](https://marketplace.visualstudio.com/items?itemName=chenxsan.vscode-standardjs)
