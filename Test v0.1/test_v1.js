@@ -3,11 +3,11 @@ let Default_KM_traveld=0;
 let Default_KM_commend=""
 console.log(Default_KM_traveld);
 
+/*let Declaratie_kilometers = localStorage.getItem("Declaratie_kilometers");
+    Default_KM_commend = JSON.parse(Declaratie_kilometers).Default_KM_commend;
+    Default_KM_traveld = JSON.parse(Declaratie_kilometers).Default_KM_traveld;
 
-    Default_KM_commend = localStorage.getItem("Declaratie_kilometers").Default_KM_commend;
-    Default_KM_traveld = localStorage.getItem("Declaratie_kilometers").Default_KM_traveld;
-
-
+*/
 
 function addUserInterface(){
   let node = document.createElement("DIV");
@@ -37,7 +37,7 @@ function setDeaultKM(){
   let Default_KM ={ Default_KM_commend,
   Default_KM_traveld}
   console.log(Default_KM);
-  localStorage.setItem("Declaratie_kilometers", Default_KM_traveld);
+  localStorage.setItem("Declaratie_kilometers", JSON.stringify(Default_KM));
   setKMValueInSheet();
 }
 function setKMValueInSheet(){
