@@ -52,8 +52,8 @@
     for (i; i < maxLength - 3; i++) {
       document.getElementsByClassName(getClassNameTimereg)[i].lastChild.value = kilometers;
     }
+    
     document.getElementsByClassName(getClassNameTimereg)[maxLength - 2].lastChild.value = comment;
-
   }
 
   function getDefaultComment() {
