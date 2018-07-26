@@ -6,6 +6,7 @@
   const setAttributeIdKM ="KM";
   const setAttributeIdCommend ="Commend";
   const getClassNameTimereg = "PortletText2";
+  const setAttributeIdButtonDef= "ButtonDefault";
 
   setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   addUserInterface();
@@ -13,22 +14,25 @@
   function addUserInterface() {
     let node = document.createElement("DIV");
     document.body.appendChild(node).setAttribute("class", "UI_interface");
-    const UI_interface = document.getElementsByClassName("UI_interface")[0];
-    node = document.createElement("INPUT");
+    const setElementLocation = document.getElementsByClassName("UI_interface")[0];
+    AddInputBox(setElementLocation, setAttributeIdKM);
+    AddInputBox(setElementLocation, setAttributeIdCommend);
+    AddButton(setElementLocation, setAttributeIdButtonDef);
+  }
+
+  function AddInputBox(setElementLocation ,setAttributeIdName){
+    let node = document.createElement("INPUT");
     node.setAttribute("type", "text");
-    node.setAttribute("value", setAttributeIdKM);
-    node.setAttribute("id", setAttributeIdKM);
-    UI_interface.appendChild(node);
-    node = document.createElement("INPUT");
-    node.setAttribute("type", "text");
-    node.setAttribute("value", setAttributeIdCommend);
-    node.setAttribute("id", setAttributeIdCommend);
-    UI_interface.appendChild(node);
-    node = document.createElement("BUTTON");
+    node.setAttribute("value", setAttributeIdName);
+    node.setAttribute("id", setAttributeIdName);
+    setElementLocation.appendChild(node);
+  }
+  function AddButton(setElementLocation, setAttributeIdButton){
+    let node = document.createElement("BUTTON");
     let textnode = document.createTextNode("New default");
     node.appendChild(textnode);
-    UI_interface.appendChild(node).setAttribute("id", "ButtonDefault");
-    document.getElementById("ButtonDefault").addEventListener("click", setStorageValues);
+    setElementLocation.appendChild(node).setAttribute("id", setAttributeIdButton);
+    document.getElementById(setAttributeIdButton).addEventListener("click", setStorageValues);
   }
 
   function setStorageValues() {
@@ -42,7 +46,6 @@
 
     setDefaultComment(defaultKilometersComment);
     setDefaultKilometers(defaultKilometersTravelled);
-
     setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   }
 
