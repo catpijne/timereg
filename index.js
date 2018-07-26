@@ -3,10 +3,10 @@
 
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
-  const setAttributeIdKM = "KM";
-  const setAttributeIdCommend = "Commend";
+  const kilometerTextboxIdentifier = "KM";
+  const commentTextboxIdentifier = "Commend";
   const getClassNameTimereg = "PortletText2";
-  const setAttributeIdButtonDef = "ButtonDefault";
+  const defaultButtonId= "ButtonDefault";
 
   setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   addUserInterface();
@@ -14,31 +14,31 @@
   function addUserInterface() {
     let node = document.createElement("DIV");
     document.body.appendChild(node).setAttribute("class", "UI_interface");
-    const setElementLocation = document.getElementsByClassName("UI_interface")[0];
-    AddInputBox(setElementLocation, setAttributeIdKM);
-    AddInputBox(setElementLocation, setAttributeIdCommend);
-    AddButton(setElementLocation, setAttributeIdButtonDef);
+    const userInterfaceRootElement = document.getElementsByClassName("UI_interface")[0];
+    AddInputBox(userInterfaceRootElement, kilometerTextboxIdentifier);
+    AddInputBox(userInterfaceRootElement, commentTextboxIdentifier);
+    AddButton(userInterfaceRootElement, defaultButtonId);
   }
 
-  function AddInputBox(setElementLocation, setAttributeIdName) {
+  function AddInputBox(parentElement, nameId) {
     let node = document.createElement("INPUT");
     node.setAttribute("type", "text");
-    node.setAttribute("value", setAttributeIdName);
-    node.setAttribute("id", setAttributeIdName);
-    setElementLocation.appendChild(node);
+    node.setAttribute("value", nameId);
+    node.setAttribute("id", nameId);
+    parentElement.appendChild(node);
   }
 
-  function AddButton(setElementLocation, setAttributeIdButton) {
+  function AddButton(parentElement, buttonId) {
     let node = document.createElement("BUTTON");
     let textnode = document.createTextNode("New default");
     node.appendChild(textnode);
-    setElementLocation.appendChild(node).setAttribute("id", setAttributeIdButton);
-    document.getElementById(setAttributeIdButton).addEventListener("click", setStorageValues);
+    parentElement.appendChild(node).setAttribute("id", buttonId);
+    document.getElementById(buttonId).addEventListener("click", setStorageValues);
   }
 
   function setStorageValues() {
-    defaultKilometersComment = document.getElementById(setAttributeIdCommend).value;
-    defaultKilometersTravelled = document.getElementById(setAttributeIdKM).value;
+    defaultKilometersComment = document.getElementById(commentTextboxIdentifier).value;
+    defaultKilometersTravelled = document.getElementById(kilometerTextboxIdentifier).value;
 
     setDefaultComment(defaultKilometersComment);
     setDefaultKilometers(defaultKilometersTravelled);
@@ -52,7 +52,7 @@
     for (i; i < maxLength - 3; i++) {
       document.getElementsByClassName(getClassNameTimereg)[i].lastChild.value = kilometers;
     }
-    
+
     document.getElementsByClassName(getClassNameTimereg)[maxLength - 2].lastChild.value = comment;
   }
 
