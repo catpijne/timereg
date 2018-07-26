@@ -3,10 +3,10 @@
 
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
-  const setAttributeIdKM ="KM";
-  const setAttributeIdCommend ="Commend";
+  const setAttributeIdKM = "KM";
+  const setAttributeIdCommend = "Commend";
   const getClassNameTimereg = "PortletText2";
-  const setAttributeIdButtonDef= "ButtonDefault";
+  const setAttributeIdButtonDef = "ButtonDefault";
 
   setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   addUserInterface();
@@ -20,14 +20,15 @@
     AddButton(setElementLocation, setAttributeIdButtonDef);
   }
 
-  function AddInputBox(setElementLocation ,setAttributeIdName){
+  function AddInputBox(setElementLocation, setAttributeIdName) {
     let node = document.createElement("INPUT");
     node.setAttribute("type", "text");
     node.setAttribute("value", setAttributeIdName);
     node.setAttribute("id", setAttributeIdName);
     setElementLocation.appendChild(node);
   }
-  function AddButton(setElementLocation, setAttributeIdButton){
+
+  function AddButton(setElementLocation, setAttributeIdButton) {
     let node = document.createElement("BUTTON");
     let textnode = document.createTextNode("New default");
     node.appendChild(textnode);
@@ -38,11 +39,6 @@
   function setStorageValues() {
     defaultKilometersComment = document.getElementById(setAttributeIdCommend).value;
     defaultKilometersTravelled = document.getElementById(setAttributeIdKM).value;
-    let Default_KM = {
-      defaultKilometersComment,
-      defaultKilometersTravelled
-    }
-    console.log(Default_KM);
 
     setDefaultComment(defaultKilometersComment);
     setDefaultKilometers(defaultKilometersTravelled);
@@ -51,7 +47,7 @@
 
   function setKMValueInSheet(kilometers, comment) {
     let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
-    console.log(maxLength);
+
     let i = maxLength - 8;
     for (i; i < maxLength - 3; i++) {
       document.getElementsByClassName(getClassNameTimereg)[i].lastChild.value = kilometers;
