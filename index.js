@@ -3,6 +3,9 @@
 
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
+  const setAttributeIdKM ="KM";
+  const setAttributeIdCommend ="Commend";
+  const getClassNameTimereg = "PortletText2";
 
   setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   addUserInterface();
@@ -13,13 +16,13 @@
     const UI_interface = document.getElementsByClassName("UI_interface")[0];
     node = document.createElement("INPUT");
     node.setAttribute("type", "text");
-    node.setAttribute("value", "KM");
-    node.setAttribute("id", "KM");
+    node.setAttribute("value", setAttributeIdKM);
+    node.setAttribute("id", setAttributeIdKM);
     UI_interface.appendChild(node);
     node = document.createElement("INPUT");
     node.setAttribute("type", "text");
-    node.setAttribute("value", "Commend");
-    node.setAttribute("id", "Commend");
+    node.setAttribute("value", setAttributeIdCommend);
+    node.setAttribute("id", setAttributeIdCommend);
     UI_interface.appendChild(node);
     node = document.createElement("BUTTON");
     let textnode = document.createTextNode("New default");
@@ -29,8 +32,8 @@
   }
 
   function setStorageValues() {
-    defaultKilometersComment = document.getElementById("Commend").value;
-    defaultKilometersTravelled = document.getElementById("KM").value;
+    defaultKilometersComment = document.getElementById(setAttributeIdCommend).value;
+    defaultKilometersTravelled = document.getElementById(setAttributeIdKM).value;
     let Default_KM = {
       defaultKilometersComment,
       defaultKilometersTravelled
@@ -44,13 +47,13 @@
   }
 
   function setKMValueInSheet(kilometers, comment) {
-    let maxLength = document.getElementsByClassName("PortletText2").length;
+    let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
     console.log(maxLength);
     let i = maxLength - 8;
     for (i; i < maxLength - 3; i++) {
-      document.getElementsByClassName("PortletText2")[i].lastChild.value = kilometers;
+      document.getElementsByClassName(getClassNameTimereg)[i].lastChild.value = kilometers;
     }
-    document.getElementsByClassName("PortletText2")[maxLength - 2].lastChild.value = comment;
+    document.getElementsByClassName(getClassNameTimereg)[maxLength - 2].lastChild.value = comment;
 
   }
 
