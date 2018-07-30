@@ -3,6 +3,7 @@
 
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
+  //  let defaultKilometersLocation = getDefaultLocation();
   const kilometerTextboxIdentifier = 'KM';
   const commentTextboxIdentifier = 'Commend';
   const getClassNameTimereg = 'PortletText2';
@@ -18,18 +19,20 @@
     document.body.appendChild(node).setAttribute('class', 'UI_interface');
     const userInterfaceRootElement = document.getElementsByClassName('UI_interface')[0];
     addCheckboxInterface(userInterfaceRootElement);
-    AddInputBox(userInterfaceRootElement, kilometerTextboxIdentifier, textInputType);
-    AddInputBox(userInterfaceRootElement, commentTextboxIdentifier, textInputType);
+    //  AddInputBox(userInterfaceRootElement, kilometerTextboxIdentifier, textInputType);
+    //  AddInputBox(userInterfaceRootElement, commentTextboxIdentifier, textInputType);
     AddButton(userInterfaceRootElement, defaultButtonId);
   }
 
-  function AddInputBox (parentElement, Id, InputType) {
+  /*
+    function AddInputBox (parentElement, Id, InputType) {
     let node = document.createElement('INPUT');
     node.setAttribute('type', InputType);
     node.setAttribute('value', Id);
     node.setAttribute('id', Id);
     parentElement.appendChild(node);
   }
+  */
 
   function AddButton (parentElement, buttonId) {
     let node = document.createElement('BUTTON');
@@ -67,6 +70,11 @@
     return window.localStorage.getItem('defaultKilometersTravelled') ? window.localStorage.getItem('defaultKilometersTravelled') : 0;
   }
 
+  /*
+  function getDefaultLocation () {
+    return window.localStorage.getItem('defaultKilometersLocation') ? window.localStorage.getItem('defaultKilometersLocation') : '';
+  }
+  */
   function setDefaultComment (value) {
     return window.localStorage.setItem('defaultKilometersComment', value);
   }
@@ -74,7 +82,11 @@
   function setDefaultKilometers (value) {
     return window.localStorage.setItem('defaultKilometersTravelled', value);
   }
-
+  /*
+  function setDefaultLocation (value) {
+    return window.localStorage.setItem('DefaultKilometersLocation', value);
+  }
+*/
   function addCheckboxInterface (userInterfaceRootElement) {
     let node = document.createElement('Table');
     userInterfaceRootElement.appendChild(node).setAttribute('class', 'UI_checkbox_table');
