@@ -15,12 +15,11 @@
 </template>
 
 <script>
-const weekInfoStorageName = "weekInfo";
-
+import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
 export default {
   name: "LocationInfoTableRow",
   data: function() {
-    return getWeekInfo(1);
+    return WeekInfoStorage.getWeekInfo(1);
   },
   methods: {
     save: function() {
@@ -31,40 +30,8 @@ export default {
         checkedDays: this.checkedDays
       };
 
-      setWeekInfo(1, weekInfo);
+      WeekInfoStorage.setWeekInfo(1, weekInfo);
     }
   }
-};
-
-function setWeekInfo(id, value) {
-  let weekInfos = localStorage.getObject(weekInfoStorageName);
-  if (!weekInfos) {
-    weekInfos = {};
-  }
-  weekInfos[id] = value;
-
-  localStorage.setObject(weekInfoStorageName, weekInfos);
-}
-
-function getWeekInfo(id) {
-  return localStorage.getObject(weekInfoStorageName) &&
-    localStorage.getObject(weekInfoStorageName)[id]
-    ? localStorage.getObject(weekInfoStorageName)[id]
-    : {
-        name: "name",
-        comment: "comment",
-        km: 2,
-        checkedDays: [],
-        id: 1
-      };
-}
-
-Storage.prototype.setObject = function(key, value) {
-  this.setItem(key, JSON.stringify(value));
-};
-
-Storage.prototype.getObject = function(key) {
-  var value = this.getItem(key);
-  return value && JSON.parse(value);
 };
 </script>
