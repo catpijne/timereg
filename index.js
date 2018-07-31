@@ -1,9 +1,7 @@
 (function () {
-  document.body.style.background = 'rgb(255, 255, 0)';
-
   let defaultKilometersComment = getDefaultComment();
   let defaultKilometersTravelled = getDefaultKilometers();
-  //  let defaultKilometersLocation = getDefaultLocation();
+  let defaultKilometersLocation = getDefaultLocation();
   const kilometerTextboxIdentifier = 'KM';
   const commentTextboxIdentifier = 'Commend';
   const getClassNameTimereg = 'PortletText2';
@@ -45,9 +43,10 @@
   function setStorageValues () {
     defaultKilometersComment = document.getElementById(commentTextboxIdentifier).value;
     defaultKilometersTravelled = document.getElementById(kilometerTextboxIdentifier).value;
-
+    defaultKilometersLocation = document.getElementById(defaultKilometersLocation).value;
     setDefaultComment(defaultKilometersComment);
     setDefaultKilometers(defaultKilometersTravelled);
+    setDefaultLocation(defaultKilometersLocation);
     setKMValueInSheet(defaultKilometersTravelled, defaultKilometersComment);
   }
 
@@ -70,11 +69,10 @@
     return window.localStorage.getItem('defaultKilometersTravelled') ? window.localStorage.getItem('defaultKilometersTravelled') : 0;
   }
 
-  /*
   function getDefaultLocation () {
     return window.localStorage.getItem('defaultKilometersLocation') ? window.localStorage.getItem('defaultKilometersLocation') : '';
   }
-  */
+
   function setDefaultComment (value) {
     return window.localStorage.setItem('defaultKilometersComment', value);
   }
@@ -82,18 +80,18 @@
   function setDefaultKilometers (value) {
     return window.localStorage.setItem('defaultKilometersTravelled', value);
   }
-  /*
+
   function setDefaultLocation (value) {
-    return window.localStorage.setItem('DefaultKilometersLocation', value);
+    return window.localStorage.setItem('defaultKilometersLocation', value);
   }
-*/
+
   function addCheckboxInterface (userInterfaceRootElement) {
     let node = document.createElement('Table');
     userInterfaceRootElement.appendChild(node).setAttribute('class', 'UI_checkbox_table');
     node = document.createElement('tr');
     document.getElementsByClassName('UI_checkbox_table')[0].appendChild(node).setAttribute('id', 'UI_checkbox_header');
     const userInterfaceTableHeaderElement = document.getElementById('UI_checkbox_header');
-    AddTableHeaderCheckbox(userInterfaceTableHeaderElement, 'location naam');
+    AddTableHeaderCheckbox(userInterfaceTableHeaderElement, 'location');
     AddTableHeaderCheckbox(userInterfaceTableHeaderElement, 'KM');
     AddTableHeaderCheckbox(userInterfaceTableHeaderElement, 'Commentaar');
     AddTableHeaderCheckbox(userInterfaceTableHeaderElement, 'maandag');
