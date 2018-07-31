@@ -10,21 +10,17 @@
         <th>donderdag</th>
         <th>vrijdag</th>
       </tr>
-      <tr id="UI_locationInfo">
-        <td class="locationName"><input id="locationName" type="text"></td>
-        <td class="KM"><input id="KM" type="text"></td>
-        <td class="Commend"><input id="Commend" type="text"></td>
-        <td class="Maandag"><input id="Maandag" type="checkbox"></td>
-        <td class="Dinsdag"><input id="Dinsdag" type="checkbox"></td>
-        <td class="Woensdag"><input id="Woensdag" type="checkbox"></td>
-        <td class="Donderdag"><input id="Donderdag" type="checkbox"></td>
-        <td class="Vrijdag"><input id="Vrijdag" type="checkbox"></td>
-      </tr>
+      <LocationInfoTableRow name="test" comment="commentje" v-bind:km="1" v-bind:checkedDays="['mo', 'tue']" />
     </table>
 </template>
 
 <script>
+import LocationInfoTableRow from "@/components/LocationInfoTableRow";
+
 export default {
   name: "LocationInfoTable",
+  components: {
+    LocationInfoTableRow
+  }
 };
 </script>
