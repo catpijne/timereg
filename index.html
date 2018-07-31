@@ -1,12 +1,424 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <title>timereg</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <!-- built files will be auto injected -->
-  </body>
-</html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="-1">
+<meta name="description" content="Timeregistration">
+<meta name="keywords" content="CENTRIC solutions">
+<script>
+window.status = 'Centric Tijdregistratie';
+</script>
+<link href="https://timereg.centric.eu/html/top_images/favicon.ico" rel="shortcut icon" type="image/x-icon">
+<link href="Tijdreg%20%20Registreren%20urenstaat%20medewerker_bestanden/top_201501.css" rel="stylesheet" type="text/css">
+<script src="Tijdreg%20%20Registreren%20urenstaat%20medewerker_bestanden/menubar_20131007.js"></script>
+<title>Tijdreg: Registreren urenstaat medewerker</title>
+</head>
+<body style="margin: 0px; padding: 0px; font-family: Arial; background: rgb(255, 255, 255) none repeat scroll 0% 0%;">
+<table style="border-collapse:collapse" width="100%">
+<tbody><tr style="height:127px;">
+<td><p style="font-size:38pt;font-weight:bold;margin-bottom:10px;">&nbsp;&nbsp;Tijdregistratie</p></td>
+<td style="text-align:right; padding-right: 30px; padding-left: 30px"><img style="height:80px" src="Tijdreg%20%20Registreren%20urenstaat%20medewerker_bestanden/centric-logo-new.gif"></td>
+</tr>
+<tr>
+<td colspan="2"><table style="border-collapse:collapse" width="100%"><tbody><tr style="background-color:#007734"><td><!-- Tags for the menu bar. --><div id="menuBar" align="left"><a style="cursor: pointer;" class="menuButton" onclick="return buttonClick(this, 'menuMdw');" onmouseover="buttonMouseover(this, 'menuMdw');">Medewerker</a></div></td>
+<td style="text-align:right;">
+<a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_homepage.main" style="cursor:pointer;" class="menuButton">Startpagina</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_homepage.logout" style="cursor:pointer;" class="menuButton">
+Logout:&nbsp;cpijnen1&nbsp;</a>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-collapse:separate;"><div id="menuMdw" class="menu"><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_actielijst_mdw.show" style="cursor: hand" class="menuItem">Actielijst Medewerker</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_rdp_status_urenstaten_mdw.show" style="cursor: hand" class="menuItem">Periodeoverzicht</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_rdp_verlof_tvt.show" style="cursor: hand" class="menuItem">Verlof overzicht</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_run_reports.rep_reportc_show" style="cursor: hand" class="menuItem">Afdrukken/Upload urenstaten</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_run_reports.rep_medewerker?p_mdw_id=own" style="cursor: hand" class="menuItem">Afdrukken urenoverzicht</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_rdp_medewerker.show?p_mdw_id=&amp;p_back=0" style="cursor: hand" class="menuItem">Instellingen medewerker</a><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_beheer_medewerkers.password" style="cursor: hand" class="menuItem">Wijzigen wachtwoord</a></div>
+
+
+<script type="text/javascript">
+    var prj_srt = "XX";
+    var prj_act = "XX";
+
+   function getXmlHttp()
+   {
+      var xmlHttp;
+	   try
+	   {   //Firefox, Opera 8.0+, Safari
+		    xmlHttp = new XMLHttpRequest();
+	   }
+	   catch(e)
+	   {   //IE
+		    try
+		    {
+			     xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+		    }
+		    catch(e)
+		    {
+			     try
+			     {
+				     xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+			     }
+			     catch(e)
+			     {
+				     alert("Geen Ajax ondersteuning op deze browser");
+				     return null;
+			     }
+		    }
+      }
+      return xmlHttp;
+   }
+
+    function project_soort(asg_id)
+    {
+      var xmlHttp = getXmlHttp();
+
+      xmlHttp.onreadystatechange = function()
+      {
+         if(xmlHttp.readyState == 4)
+         {
+            prj_srt = xmlHttp.responseText;
+         }
+      }
+
+      xmlHttp.open(
+         "GET",
+         "tijdreg.top_wijz_urenstaat_mdw.get_project_soort"
+         + "?p_asg_id=" + asg_id
+         , false);
+
+      xmlHttp.send(null);
+    }
+
+    function activity(asg_id)
+    {
+      var xmlHttp = getXmlHttp();
+
+      xmlHttp.onreadystatechange = function()
+      {
+         if(xmlHttp.readyState == 4)
+         {
+            prj_act = xmlHttp.responseText;
+         }
+      }
+
+      xmlHttp.open(
+         "GET",
+         "tijdreg.top_wijz_urenstaat_mdw.get_project_activity"
+         + "?p_asg_id=" + asg_id
+         , false);
+
+      xmlHttp.send(null);
+    }
+
+    function change_lov_uren(asg_id, id_nr)
+    {
+      var xmlHttp  = getXmlHttp();
+      var lov_uren = "suc_lov_" + id_nr;
+      var asg_el   = "asg_id_" + id_nr;
+      var lov_suc  = "sel_uren_" + id_nr;
+      var suc_el   = "suc_id_value_" + id_nr;
+      var suc_id   = 0;
+      var oma_prj  = "OMA";
+      var srt_prj  = "";
+      var bzk_rap_id = "bzkrap_" + id_nr;
+      var km_text    = "km_text_" + id_nr;
+      var km         = "km_" + id_nr + "_";
+
+      project_soort(asg_id);
+      srt_prj = prj_srt.substr(0,oma_prj.length);
+      activity(asg_id);
+
+      if (srt_prj === oma_prj)
+      {
+         document.getElementById(bzk_rap_id).className = "";
+         if (prj_act.indexOf(" - *") > 0)
+         {
+           document.getElementById(km_text).className = "";
+           document.getElementById("opmerking_hd_d").className = "";
+           for (var j = 1; j < 8; j++) {
+             if (document.getElementById(km + j))
+             {
+               document.getElementById(km + j).className = "";
+             }
+           }
+         }
+      } else {
+         document.getElementById(bzk_rap_id).className = "hide_element";
+         document.getElementById(km_text).className = "hide_element";
+         document.getElementById("opmerking_hd_d").className = "hide_element";
+         for (var j = 1; j < 8; j++) {
+            if (document.getElementById(km + j))
+            {
+               document.getElementById(km + j).className = "hide_element";
+            }
+         }
+      }
+
+      document.getElementById(asg_el).value = asg_id;
+
+      xmlHttp.onreadystatechange = function()
+      {
+         if(xmlHttp.readyState == 4)
+         {
+         document.getElementById(lov_uren).innerHTML = xmlHttp.responseText;
+         document.getElementById(suc_el).value = document.getElementById(lov_suc).value;
+         }
+      }
+
+      xmlHttp.open(
+         "GET",
+         "tijdreg.top_wijz_urenstaat_mdw.show_lov_uren_ajax"
+         + "?p_code_suc_type=CO"
+         + "&p_item_suffix=" + id_nr
+         + "&p_dat_van=23-JUL-18"
+         + "&p_suc_id=0"
+         + "&p_asg_id=" + asg_id
+         , true);
+
+      xmlHttp.send(null);
+
+    }
+
+    function change_lov_assignaties(deelproject_code, id_nr)
+    {
+      var xmlHttp  = getXmlHttp();
+      var lov_asg  = "lov_asg_" + id_nr;
+      var sel_asg  = "sel_asg_id_" + id_nr;
+      var asg_id   = 0;
+
+      xmlHttp.onreadystatechange = function()
+      {
+         if(xmlHttp.readyState == 4)
+         {
+         document.getElementById(lov_asg).innerHTML = xmlHttp.responseText;
+         asg_id = document.getElementById(sel_asg).value;
+         change_lov_uren(asg_id, id_nr);
+         }
+      }
+
+      xmlHttp.open(
+         "GET",
+         "tijdreg.top_wijz_urenstaat_mdw.show_lov_assignaties"
+         + "?p_deelproject_code=" + deelproject_code
+         + "&p_item_suffix=" + id_nr
+         + "&p_dat_van=23-JUL-18"
+         + "&p_mdw_id=10954"
+         , true);
+
+      xmlHttp.send(null);
+
+    }
+
+    function CheckKm(theElement)
+    {
+      if ( isNaN(theElement.value) || theElement.value < -999 || theElement.value > 999 )
+          // || parseFloat(theElement.value) != parseInt(theElement.value) )
+      {
+        alert( "Waarde moet een positief geheel getal zijn < 1000" );
+        theElement.focus();
+        theElement.select();
+        return false;
+      }
+      return false;
+    }
+
+    function TOPcheckUur(theElement, theElementName)
+    {
+      if ( theElement.value < -24 || theElement.value > 24 || isNaN( Math.abs(theElement.value) ) )
+      {
+         if ( typeof theElementName == "undefined" )
+            alert( "Waarde moet numeriek zijn en liggen tussen -24 en 24 uur." );
+         else
+            alert( "Waarde moet numeriek zijn en liggen tussen -24 en 24 uur." );
+         theElement.focus();
+         theElement.select();
+         theElement.value=0;
+       }
+    }
+
+    function set_checkbox(theElement)
+    {
+      var i, j;
+       if (document.show_form.p_wissen.length) {
+         j = document.show_form.p_wissen.length;
+         for (i = 0; i < j; i++) {
+           document.show_form.p_wissen[i].checked = theElement.checked;
+         }
+       } else {
+         document.show_form.p_wissen.checked = theElement.checked;
+       }
+    }
+//-->
+</script> 
+<form action="tijdreg.top_wijz_urenstaat_mdw.action_handler" method="POST" name="show_form">
+<input name="p_rol_mdw" value="MDW" type="hidden">
+<input name="p_mdw_id" value="10954" type="hidden">
+<input name="p_mdw_id_ingelogd" value="10954" type="hidden">
+<input name="p_klt_id" value="" type="hidden">
+<input name="p_dat_van" value="23-JUL-18" type="hidden">
+<input name="p_dat_tm" value="29-JUL-18" type="hidden">
+<input name="p_vai_id" value="1140861" type="hidden">
+<table class="center-tab">
+<tbody><tr>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td class="PortletHeading2" style="height:40px;text-align:center;" colspan="4"><b>&nbsp;&nbsp;Registreren urenstaat medewerker&nbsp;&nbsp;</b></td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+<tr valign="top">
+<td class="PortletHeading2">Medewerker</td>
+<td class="PortletText2"><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_rdp_medewerker.show?p_mdw_id=10954">Pijnenburg CAT</a>&nbsp;<a href="mailto:christiaan.pijnenburg@centric.eu"><img src="Tijdreg%20%20Registreren%20urenstaat%20medewerker_bestanden/mailtos.gif" alt="Mail medewerker" title="Mail medewerker" border="0"></a></td>
+<td class="PortletHeading2">Accordeur</td>
+<td class="PortletText2">Peters D&nbsp;<a href="mailto:danny.peters@centric.eu"><img src="Tijdreg%20%20Registreren%20urenstaat%20medewerker_bestanden/mailtos.gif" alt="Mail accordeur" title="Mail accordeur" border="0"></a></td>
+</tr>
+<tr>
+<td class="PortletHeading2">Soort</td>
+<td class="PortletText2">Intern</td>
+<td class="PortletHeading2">RegioAssistent</td>
+<td class="PortletText2">RegioassPS &nbsp;<a href="mailto:contractmanagement@centric.eu"><img src="Tijdreg%20%20Registreren%20urenstaat%20medewerker_bestanden/mailtos.gif" alt="Mail regioassistent" title="Mail regioassistent" border="0"></a></td>
+</tr>
+<tr>
+<td class="PortletHeading2">Uren per week</td>
+<td class="PortletText2">40</td>
+<td class="PortletHeading2">Periode</td>
+<td class="PortletText2">2018, Week 30</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+<table border="0" align="CENTER">
+<tbody><tr>
+<td class="PortletHeading2"><b>Direct</b><br>Project</td>
+<td class="PortletHeading2" valign="BOTTOM">Uursoort</td>
+<td class="PortletHeading2" valign="BOTTOM">Corr.</td>
+<td class="PortletHeading2" align="CENTER">23-07<br>ma</td>
+<td class="PortletHeading2" align="CENTER">24-07<br>di</td>
+<td class="PortletHeading2" align="CENTER">25-07<br>wo</td>
+<td class="PortletHeading2" align="CENTER">26-07<br>do</td>
+<td class="PortletHeading2" align="CENTER">27-07<br>vr</td>
+<td class="PortletHeading2" align="CENTER">28-07<br>za</td>
+<td class="PortletHeading2" align="CENTER">29-07<br>zo</td>
+<td class="PortletHeading2" valign="BOTTOM">Totaal</td>
+<td class="PortletHeading2" valign="BOTTOM">Opmerking<span id="opmerking_hd" class="hide_element">/<br>Bezoekrapport</span></td>
+<td class="PortletHeading2" valign="bottom">Regel <br>wissen</td>
+</tr>
+<tr style="background-color: #CCCCCC;">
+<td style="line-height: 150%" class="PortletText2"><input name="p_regelnr" value="2" type="hidden"><input name="p_asg_id" value="489638" type="hidden"><input name="p_suc_id" value="268" type="hidden"><input name="p_proj" value="" type="hidden"><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_rdp_assignatie.show?p_asg_id=489638">Centric Interne Projecten - OV0010 - Overhead<br>Activiteit: Vrij Inzetbare Uren</a></td>
+<td style="line-height: 150%" class="PortletText2">Vrij inzetbare uren<br><span class="hide_element">Kilometers</span></td>
+<td class="PortletText2" align="CENTER">&nbsp;</td>
+<td class="PortletText2"><input name="p_dat" value="23-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="8" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText2"><input name="p_dat" value="24-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="8" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText2"><input name="p_dat" value="25-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="8" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText2"><input name="p_dat" value="26-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="8" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText2"><input name="p_dat" value="27-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="8" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText5"><input name="p_dat" value="28-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText5"><input name="p_dat" value="29-JUL-18" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="TOPcheckUur(this, 'Uren:')" type="text"><br><span class="hide_element"><input name="p_km" size="1" maxlength="5" value="0" style="text-align: right;" onblur="CheckKm(this)" type="text"> km</span></td>
+<td class="PortletText2" style="align-items: baseline;"><div style="width: 100%; text-align: center; line-height: 160%;">40/40</div></td>
+<td class="PortletText2"><input name="p_opm" size="20" maxlength="80" type="text"><br><span class="hide_element">rap: <input name="p_bzkrap" size="10" maxlength="10" type="text"></span></td>
+<td class="PortletText2"><center><input name="p_wissen" value="2" type="checkbox"></center></td>
+</tr>
+<tr>
+<td><br></td>
+</tr>
+<tr>
+<td class="PortletHeading2"><b>Indirect</b><br>Omschrijving</td>
+<td class="PortletHeading2" valign="BOTTOM">Uursoort</td>
+<td class="PortletHeading2" valign="BOTTOM">&nbsp;</td>
+<td class="PortletHeading2" align="CENTER">23-07<br>ma</td>
+<td class="PortletHeading2" align="CENTER">24-07<br>di</td>
+<td class="PortletHeading2" align="CENTER">25-07<br>wo</td>
+<td class="PortletHeading2" align="CENTER">26-07<br>do</td>
+<td class="PortletHeading2" align="CENTER">27-07<br>vr</td>
+<td class="PortletHeading2" align="CENTER">28-07<br>za</td>
+<td class="PortletHeading2" align="CENTER">29-07<br>zo</td>
+<td class="PortletHeading2" valign="BOTTOM">Totaal</td>
+<td class="PortletHeading2" valign="BOTTOM">Opmerking</td>
+<td class="PortletHeading2" valign="bottom">Regel <br>wissen</td>
+</tr>
+<tr>
+<td><br></td>
+</tr>
+<tr>
+<td class="PortletHeading2"><b>Totaal</b></td>
+<td class="PortletHeading2">&nbsp;</td>
+<td class="PortletHeading2">&nbsp;</td>
+<td class="PortletHeading2" align="CENTER">8</td>
+<td class="PortletHeading2" align="CENTER">8</td>
+<td class="PortletHeading2" align="CENTER">8</td>
+<td class="PortletHeading2" align="CENTER">8</td>
+<td class="PortletHeading2" align="CENTER">8</td>
+<td class="PortletHeading2" align="CENTER">0</td>
+<td class="PortletHeading2" align="CENTER">0</td>
+<td class="PortletHeading2" align="CENTER">40/40</td>
+<td class="PortletHeading2" align="CENTER">&nbsp;</td>
+<td class="PortletHeading2">&nbsp;</td>
+</tr>
+<tr>
+<td><br></td>
+</tr>
+<tr>
+<td class="PortletHeading2"><b>Declaratie kilometers</b><br>Omschrijving</td>
+<td class="PortletHeading2" valign="BOTTOM">Soort</td>
+<td class="PortletHeading2" valign="BOTTOM">&nbsp;</td>
+<td class="PortletHeading2" align="CENTER">23-07<br>ma</td>
+<td class="PortletHeading2" align="CENTER">24-07<br>di</td>
+<td class="PortletHeading2" align="CENTER">25-07<br>wo</td>
+<td class="PortletHeading2" align="CENTER">26-07<br>do</td>
+<td class="PortletHeading2" align="CENTER">27-07<br>vr</td>
+<td class="PortletHeading2" align="CENTER">28-07<br>za</td>
+<td class="PortletHeading2" align="CENTER">29-07<br>zo</td>
+<td class="PortletHeading2" valign="BOTTOM">&nbsp;</td>
+<td class="PortletHeading2" valign="BOTTOM">Opmerking</td>
+<td class="PortletHeading2" valign="bottom">Regel <br>wissen</td>
+</tr>
+<tr>
+<td class="PortletText2"><input name="p_regelnr" value="1" type="hidden"><input name="p_asg_id" value="331115" type="hidden"><input name="p_proj" value="" type="hidden"><a href="https://timereg.centric.eu/pls/ptijdreg/tijdreg.top_rdp_assignatie.show?p_asg_id=331115">Rol Medewerker</a></td>
+<td class="PortletText2">
+<select name="p_suc_id">
+<option value="77" selected="selected">Kilometers mobiliteitsbudget</option>
+<option value="75">Kilometers Woon-Werk (retour)</option>
+<option value="76">Kilometers zakelijk</option>
+</select>
+</td>
+<td class="PortletText2" align="CENTER">&nbsp;</td>
+<td class="PortletText2"><input name="p_dat" value="23-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="1" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText2"><input name="p_dat" value="24-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText2"><input name="p_dat" value="25-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText2"><input name="p_dat" value="26-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText2"><input name="p_dat" value="27-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText5"><input name="p_dat" value="28-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText5"><input name="p_dat" value="29-JUL-18" type="hidden"><input name="p_km" value="0" type="hidden"><input name="p_uren" size="5" maxlength="6" value="0" style="text-align: center;" onblur="CheckKm(this)" type="text"></td>
+<td class="PortletText2" align="CENTER">5</td>
+<td class="PortletText2"><input name="p_opm" size="20" maxlength="80" value="0" type="text"></td>
+<td class="PortletText2"><center><input name="p_wissen" value="1" type="checkbox"></center></td>
+</tr>
+<tr>
+<td colspan="11">&nbsp;</td>
+<td style="text-align:right" class="PortletHeading3">Selecteer alles:</td>
+<td class="PortletHeading3 align-center"><input name="p_select_all" value="on" onclick="set_checkbox(this)" type="checkbox"></td>
+</tr>
+</tbody></table>
+<input name="p_back_url" value="tijdreg.top_actielijst_mdw.show?p_mdw_id=10954" type="hidden">
+<table border="0" align="CENTER">
+<tbody><tr>
+<td><input name="p_action" value="Extra regels" type="submit"></td>
+<td><input name="p_action" value="Bewaar staat" type="submit"></td>
+<td><input name="p_action" value="Accordeer staat" type="submit"></td>
+<td colspan="2" align="CENTER"><input value="Terug" onclick="window.location='tijdreg.top_actielijst_mdw.show?p_mdw_id=10954'" type="BUTTON"></td>
+</tr>
+</tbody></table>
+</form>
+</td>
+</tr>
+</tbody></table>
+</td>
+</tr>
+<tr>
+<td>&nbsp;</td>
+</tr>
+</tbody></table>
+
+<script src="../index.js" ></script>
