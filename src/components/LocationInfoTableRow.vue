@@ -14,7 +14,7 @@
 <script>
 export default {
   name: "LocationInfoTableRow",
-  data: {
+  defaultProps: {
     name: "Onbekende naam",
     comment: "Geen commentaar",
     km: 0,
