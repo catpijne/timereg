@@ -15,7 +15,7 @@
 </template>
 
 <script>
-const weekInfoPrefix = "weekInfo-";
+const weekInfoStorageName = "weekInfo";
 
 export default {
   name: "LocationInfoTableRow",
@@ -37,12 +37,19 @@ export default {
 };
 
 function setWeekInfo(id, value) {
-  localStorage.setObject(weekInfoPrefix + id, value);
+  let weekInfos = localStorage.getObject(weekInfoStorageName);
+  if (!weekInfos) {
+    weekInfos = {};
+  }
+  weekInfos[id] = value;
+
+  localStorage.setObject(weekInfoStorageName, weekInfos);
 }
 
 function getWeekInfo(id) {
-  return localStorage.getObject(weekInfoPrefix + id)
-    ? localStorage.getObject(weekInfoPrefix + id)
+  return localStorage.getObject(weekInfoStorageName) &&
+    localStorage.getObject(weekInfoStorageName)[id]
+    ? localStorage.getObject(weekInfoStorageName)[id]
     : {
         name: "name",
         comment: "comment",
