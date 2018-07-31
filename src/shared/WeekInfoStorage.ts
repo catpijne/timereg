@@ -1,28 +1,30 @@
-
 export default {
   setWeekInfo: function (id, value) {
-    let weekInfos = window.localStorage.getObject(weekInfoStorageName);
-    if (!weekInfos) {
-      weekInfos = {};
-    }
+    let weekInfos = getWeekInfos();
+
     weekInfos[id] = value;
 
     window.localStorage.setObject(weekInfoStorageName, weekInfos);
   },
 
   getWeekInfo: function (id) {
-    return window.localStorage.getObject(weekInfoStorageName) &&
-      window.localStorage.getObject(weekInfoStorageName)[id]
-      ? window.localStorage.getObject(weekInfoStorageName)[id]
-      : {
-        name: 'name',
-        comment: 'comment',
-        km: 2,
-        checkedDays: [],
-        id: 1
-      };
-  }
+    return getWeekInfos()[id];
+  },
+
+  getUniqueId: function () {
+    return getWeekInfos().length;
+  },
+
+  getWeekInfos: getWeekInfos
 };
+
+function getWeekInfos() {
+  let weekInfo = window.localStorage.getObject(weekInfoStorageName) ?
+    window.localStorage.getObject(weekInfoStorageName) :
+    new Array();
+
+  return weekInfo;
+}
 
 const weekInfoStorageName = 'weekInfo';
 

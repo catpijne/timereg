@@ -18,8 +18,12 @@
 import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
 export default {
   name: "LocationInfoTableRow",
-  data: function() {
-    return WeekInfoStorage.getWeekInfo(1);
+  props: {
+    id: String,
+    name: String,
+    km: Number,
+    checkedDays: Array,
+    comment: String
   },
   methods: {
     save: function() {
@@ -27,10 +31,11 @@ export default {
         name: this.name,
         comment: this.comment,
         km: this.km,
-        checkedDays: this.checkedDays
+        checkedDays: this.checkedDays,
+        id: this.id
       };
 
-      WeekInfoStorage.setWeekInfo(1, weekInfo);
+      WeekInfoStorage.setWeekInfo(this.id, weekInfo);
     }
   }
 };
