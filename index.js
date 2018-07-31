@@ -14,8 +14,8 @@
 
   function addUserInterface () {
     let node = document.createElement('DIV');
-    document.body.appendChild(node).setAttribute('class', 'UI_interface');
-    const userInterfaceRootElement = document.getElementsByClassName('UI_interface')[0];
+    document.body.appendChild(node).setAttribute('id', 'UI_interface');
+    const userInterfaceRootElement = document.getElementById('UI_interface');
     addCheckboxInterface(userInterfaceRootElement);
     //  AddInputBox(userInterfaceRootElement, kilometerTextboxIdentifier, textInputType);
     //  AddInputBox(userInterfaceRootElement, commentTextboxIdentifier, textInputType);
