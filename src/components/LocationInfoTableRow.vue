@@ -45,7 +45,6 @@ function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
 function getDeclareKilometersHeadingElement() {
   var tableElements = document.getElementsByClassName("PortletHeading2");
   var searchText = "Declaratie kilometers";
-  var found;
 
   for (var i = 0; i < tableElements.length; i++) {
     if (tableElements[i].textContent.includes(searchText)) {
