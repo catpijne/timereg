@@ -21,6 +21,13 @@ import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
 const getClassNameTimereg = "PortletText2";
 
 function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
+  let KilometersHeadingElement = getDeclareKilometersHeadingElement().parentElement;
+  let KilometersHeadingElementIndex = KilometersHeadingElement.rowIndex;
+  let KilometersBodyElement = KilometersHeadingElement.parentElement.children;
+
+  console.log("dit is maandag regel 1 van kilometers "+KilometersBodyElement[KilometersHeadingElementIndex+rowNumber+1].children[3]);
+
+
   let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
 
   let map = new Map();
@@ -51,6 +58,7 @@ function getDeclareKilometersHeadingElement() {
        return tableElements[i];
     }
   }
+
 }
 
 export default {
