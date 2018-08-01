@@ -19,7 +19,7 @@ import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
 export default {
   name: "LocationInfoTableRow",
   props: {
-    id: String,
+    id: Number,
     name: String,
     km: Number,
     checkedDays: Array,
