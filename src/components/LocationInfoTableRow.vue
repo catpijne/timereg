@@ -49,12 +49,9 @@ function getDeclareKilometersHeadingElement() {
 
   for (var i = 0; i < tableElements.length; i++) {
     if (tableElements[i].textContent.includes(searchText)) {
-      found = tableElements[i];
-      break;
+       return tableElements[i];
     }
   }
-
-  return found;
 }
 
 export default {
