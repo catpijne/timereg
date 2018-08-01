@@ -19,15 +19,20 @@
 import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
 const getClassNameTimereg = "PortletText2";
 
-function setKMValueInSheet(kilometers, comment) {
+function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
   let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
 
-  let i = maxLength - 8;
-  for (i; i < maxLength - 3; i++) {
-    document.getElementsByClassName(getClassNameTimereg)[
-      i
-    ].lastChild.value = kilometers;
-  }
+  let map = new Map();
+  map.set("mo", 8);
+  map.set("tue", 7);
+  map.set("wed", 6);
+  map.set("thu", 5);
+  map.set("fri", 4);
+
+  checkedDays.forEach(element => {
+    let disCount = map.get(element);
+    document.getElementsByClassName(getClassNameTimereg)[maxLength - disCount].lastChild.value = kilometers;
+  });
 
   document.getElementsByClassName(getClassNameTimereg)[
     maxLength - 2
@@ -64,7 +69,12 @@ export default {
         id: this.id
       };
 
-      setKMValueInSheet(weekInfo.km, weekInfo.comment);
+      setKMValueInSheet(
+        weekInfo.km,
+        weekInfo.comment,
+        weekInfo.checkedDays,
+        this.id
+      );
     }
   }
 };
