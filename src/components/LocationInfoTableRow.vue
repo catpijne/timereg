@@ -11,6 +11,7 @@
       <td>    
         <button v-on:click="save">Save</button>
         <button v-on:click="set">Set</button>
+        <button v-on:click="test">Test</button>
       </td>
     </tr>
 </template>
@@ -31,12 +32,29 @@ function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
 
   checkedDays.forEach(element => {
     let disCount = map.get(element);
-    document.getElementsByClassName(getClassNameTimereg)[maxLength - disCount].lastChild.value = kilometers;
+    document.getElementsByClassName(getClassNameTimereg)[
+      maxLength - disCount
+    ].lastChild.value = kilometers;
   });
 
   document.getElementsByClassName(getClassNameTimereg)[
     maxLength - 2
   ].lastChild.value = comment;
+}
+
+function getDeclareKilometersHeadingElement() {
+  var tableElements = document.getElementsByClassName("PortletHeading2");
+  var searchText = "Declaratie kilometers";
+  var found;
+
+  for (var i = 0; i < tableElements.length; i++) {
+    if (tableElements[i].textContent.includes(searchText)) {
+      found = tableElements[i];
+      break;
+    }
+  }
+
+  return found;
 }
 
 export default {
@@ -59,6 +77,9 @@ export default {
       };
 
       WeekInfoStorage.setWeekInfo(this.id, weekInfo);
+    },
+    test: function() {
+      console.table(getDeclareKilometersHeadingElement());
     },
     set: function() {
       let weekInfo = {
