@@ -18,44 +18,6 @@
 
 <script>
 import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
-const getClassNameTimereg = "PortletText2";
-const map = new Map();
-map.set("mo", 3);
-map.set("tue", 4);
-map.set("wed", 5);
-map.set("thu", 6);
-map.set("fri", 7);
-
-function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
-  let KilometersHeadingElement = getDeclareKilometersHeadingElement()
-    .parentElement;
-  let KilometersHeadingElementIndex = KilometersHeadingElement.rowIndex;
-  let KilometersBodyElement = KilometersHeadingElement.parentElement.children;
-  let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
-
-  checkedDays.forEach(element => {
-    let disCount = map.get(element);
-    KilometersBodyElement[KilometersHeadingElementIndex + rowNumber].children[
-      disCount
-    ].lastChild.value = kilometers;
-  });
-
-  KilometersBodyElement[
-    KilometersHeadingElementIndex + rowNumber
-  ].children[11].lastChild.value = comment;
-}
-
-function getDeclareKilometersHeadingElement() {
-  var tableElements = document.getElementsByClassName("PortletHeading2");
-  var searchText = "Declaratie kilometers";
-
-  for (var i = 0; i < tableElements.length; i++) {
-    if (tableElements[i].textContent.includes(searchText)) {
-      return tableElements[i];
-    }
-  }
-}
-
 export default {
   name: "LocationInfoTableRow",
   props: {
@@ -98,4 +60,42 @@ export default {
     }
   }
 };
+
+const getClassNameTimereg = "PortletText2";
+const map = new Map();
+map.set("mo", 3);
+map.set("tue", 4);
+map.set("wed", 5);
+map.set("thu", 6);
+map.set("fri", 7);
+
+function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
+  let KilometersHeadingElement = getDeclareKilometersHeadingElement()
+    .parentElement;
+  let KilometersHeadingElementIndex = KilometersHeadingElement.rowIndex;
+  let KilometersBodyElement = KilometersHeadingElement.parentElement.children;
+  let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
+
+  checkedDays.forEach(element => {
+    let disCount = map.get(element);
+    KilometersBodyElement[KilometersHeadingElementIndex + rowNumber].children[
+      disCount
+    ].lastChild.value = kilometers;
+  });
+
+  KilometersBodyElement[
+    KilometersHeadingElementIndex + rowNumber
+  ].children[11].lastChild.value = comment;
+}
+
+function getDeclareKilometersHeadingElement() {
+  var tableElements = document.getElementsByClassName("PortletHeading2");
+  var searchText = "Declaratie kilometers";
+
+  for (var i = 0; i < tableElements.length; i++) {
+    if (tableElements[i].textContent.includes(searchText)) {
+      return tableElements[i];
+    }
+  }
+}
 </script>
