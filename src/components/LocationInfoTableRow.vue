@@ -1,13 +1,13 @@
 <template>
     <tr class="UI_locationInfo">
-      <td class="locationName"><input type="text" v-model="name"></td>
-      <td class="KM"><input type="text" v-model="km"></td>
-      <td class="Comment"><input type="text" v-model="comment"></td>
-      <td class="Maandag"><input type="checkbox" value="mo" v-model="checkedDays"></td>
-      <td class="Dinsdag"><input type="checkbox" value="tue" v-model="checkedDays"></td>
-      <td class="Woensdag"><input type="checkbox" value="wed" v-model="checkedDays"></td>
-      <td class="Donderdag"><input type="checkbox" value="thu" v-model="checkedDays"></td>
-      <td class="Vrijdag"><input type="checkbox" value="fri" v-model="checkedDays"></td>
+      <td class="locationName"><input type="text" :value="idValue"></td>
+      <td class="KM"><input type="text" :value="kmValue"></td>
+      <td class="Comment"><input type="text" v-model="commentValue"></td>
+      <td class="Maandag"><input type="checkbox" value="mo" v-model="checkedDaysValue"></td>
+      <td class="Dinsdag"><input type="checkbox" value="tue" v-model="checkedDaysValue"></td>
+      <td class="Woensdag"><input type="checkbox" value="wed" v-model="checkedDaysValue"></td>
+      <td class="Donderdag"><input type="checkbox" value="thu" v-model="checkedDaysValue"></td>
+      <td class="Vrijdag"><input type="checkbox" value="fri" v-model="checkedDaysValue"></td>
       <td>    
         <button v-on:click="save">Save</button>
         <button v-on:click="set">Set</button>
@@ -26,6 +26,15 @@ export default {
     km: Number,
     checkedDays: Array,
     comment: String
+  },
+  data: function() {
+    return {
+      idValue: this.id,
+      nameValue: this.name,
+      kmValue: this.km,
+      checkedDaysValue: this.checkedDays,
+      commentValue: this.comment
+    };
   },
   methods: {
     save: function() {
