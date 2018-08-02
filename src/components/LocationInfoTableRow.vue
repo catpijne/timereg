@@ -1,7 +1,7 @@
 <template>
     <tr class="UI_locationInfo">
       <td class="locationName"><input type="text" v-model="nameValue"></td>
-      <td class="KM"><input type="text" v-model="kmValue"></td>
+      <td class="KM"><input type="text" v-model.number="kmValue"></td>
       <td class="Comment"><input type="text" v-model="commentValue"></td>
       <td class="Maandag"><input type="checkbox" value="mo" v-model="checkedDaysValue"></td>
       <td class="Dinsdag"><input type="checkbox" value="tue" v-model="checkedDaysValue"></td>
@@ -53,11 +53,11 @@ export default {
     },
     set: function() {
       let weekInfo = {
-        name: this.name,
-        comment: this.comment,
-        km: this.km,
-        checkedDays: this.checkedDays,
-        id: this.id
+        name: this.nameValue,
+        comment: this.commentValue,
+        km: this.kmValue,
+        checkedDays: this.checkedDaysValue,
+        id: this.idValue
       };
 
       setKMValueInSheet(
