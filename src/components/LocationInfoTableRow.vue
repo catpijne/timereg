@@ -29,20 +29,39 @@ map.set("fri", 7);
 function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
   let KilometersHeadingElement = getDeclareKilometersHeadingElement()
     .parentElement;
-  let KilometersHeadingElementIndex = KilometersHeadingElement.rowIndex;
+
+  if (!KilometersHeadingElement) {
+    return;
+  }
+
   let KilometersBodyElement = KilometersHeadingElement.parentElement.children;
+
+  if (!KilometersBodyElement) {
+    return;
+  }
+
+  let KilometersHeadingElementIndex = KilometersHeadingElement.rowIndex;
   let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
+  let row = KilometersBodyElement[KilometersHeadingElementIndex + rowNumber];
+
+  if (!row || !row.children || row.children.length < 12) {
+    return;
+  }
 
   checkedDays.forEach(element => {
     let disCount = map.get(element);
-    KilometersBodyElement[KilometersHeadingElementIndex + rowNumber].children[
-      disCount
-    ].lastChild.value = kilometers;
+    TrySetValue(row.children[disCount].lastChild, kilometers);
   });
 
-  KilometersBodyElement[
-    KilometersHeadingElementIndex + rowNumber
-  ].children[11].lastChild.value = comment;
+  TrySetValue(row.children[11].lastChild, comment);
+}
+
+function TrySetValue(element, value) {
+  if (!element || !element.value) {
+    return;
+  }
+
+  element.value = value;
 }
 
 function getDeclareKilometersHeadingElement() {
