@@ -19,34 +19,30 @@
 <script>
 import WeekInfoStorage from "../shared/WeekInfoStorage.ts";
 const getClassNameTimereg = "PortletText2";
+const map = new Map();
+map.set("mo", 3);
+map.set("tue", 4);
+map.set("wed", 5);
+map.set("thu", 6);
+map.set("fri", 7);
 
 function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
-  let KilometersHeadingElement = getDeclareKilometersHeadingElement().parentElement;
+  let KilometersHeadingElement = getDeclareKilometersHeadingElement()
+    .parentElement;
   let KilometersHeadingElementIndex = KilometersHeadingElement.rowIndex;
   let KilometersBodyElement = KilometersHeadingElement.parentElement.children;
-
-  console.log("dit is maandag regel 1 van kilometers "+KilometersBodyElement[KilometersHeadingElementIndex+rowNumber+1].children[3]);
-
-
   let maxLength = document.getElementsByClassName(getClassNameTimereg).length;
-
-  let map = new Map();
-  map.set("mo", 8);
-  map.set("tue", 7);
-  map.set("wed", 6);
-  map.set("thu", 5);
-  map.set("fri", 4);
 
   checkedDays.forEach(element => {
     let disCount = map.get(element);
-    document.getElementsByClassName(getClassNameTimereg)[
-      maxLength - disCount
+    KilometersBodyElement[KilometersHeadingElementIndex + rowNumber].children[
+      disCount
     ].lastChild.value = kilometers;
   });
 
-  document.getElementsByClassName(getClassNameTimereg)[
-    maxLength - 2
-  ].lastChild.value = comment;
+  KilometersBodyElement[
+    KilometersHeadingElementIndex + rowNumber
+  ].children[11].lastChild.value = comment;
 }
 
 function getDeclareKilometersHeadingElement() {
@@ -55,10 +51,9 @@ function getDeclareKilometersHeadingElement() {
 
   for (var i = 0; i < tableElements.length; i++) {
     if (tableElements[i].textContent.includes(searchText)) {
-       return tableElements[i];
+      return tableElements[i];
     }
   }
-
 }
 
 export default {
@@ -98,7 +93,7 @@ export default {
         weekInfo.km,
         weekInfo.comment,
         weekInfo.checkedDays,
-        this.id
+        this.id + 1
       );
     }
   }
