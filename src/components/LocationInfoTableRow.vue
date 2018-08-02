@@ -26,7 +26,7 @@ map.set("wed", 5);
 map.set("thu", 6);
 map.set("fri", 7);
 
-function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
+function trySetKilometerValueInSheet(kilometers, comment, checkedDays, rowNumber) {
   let KilometersHeadingElement = getDeclareKilometersHeadingElement()
     .parentElement;
 
@@ -50,13 +50,13 @@ function setKMValueInSheet(kilometers, comment, checkedDays, rowNumber) {
 
   checkedDays.forEach(element => {
     let disCount = map.get(element);
-    TrySetValue(row.children[disCount].lastChild, kilometers);
+    trySetValue(row.children[disCount].lastChild, kilometers);
   });
 
-  TrySetValue(row.children[11].lastChild, comment);
+  trySetValue(row.children[11].lastChild, comment);
 }
 
-function TrySetValue(element, value) {
+function trySetValue(element, value) {
   if (!element || !element.value) {
     return;
   }
@@ -108,7 +108,7 @@ export default {
         id: this.id
       };
 
-      setKMValueInSheet(
+      trySetKilometerValueInSheet(
         weekInfo.km,
         weekInfo.comment,
         weekInfo.checkedDays,
