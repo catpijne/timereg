@@ -11,7 +11,6 @@
       <td>    
         <button v-on:click="save">Save</button>
         <button v-on:click="set">Set</button>
-        <button v-on:click="test">Test</button>
       </td>
     </tr>
 </template>
@@ -47,9 +46,6 @@ export default {
       };
 
       WeekInfoStorage.setWeekInfo(this.idValue, weekInfo);
-    },
-    test: function() {
-      console.table(getDeclareKilometersHeadingElement());
     },
     set: function() {
       let weekInfo = {
